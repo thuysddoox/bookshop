@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
 import { theme } from '../../constants/theme'; 
 import Login from "../Login";
-import Dashboard from "../Dashboard";
+import Home from "../Home";
+
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
         <Router>
           <Switch>
             <Route path="/login" component={Login} />
-            <Route path="/" component={Dashboard} />
+            <Route path="" component={Home} />
           </Switch>
         </Router>
       </ThemeProvider>

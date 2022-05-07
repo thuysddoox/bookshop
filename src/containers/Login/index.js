@@ -1,7 +1,7 @@
-import { PageTitle } from '../../components/PageTitle';
+
 
 function Login () {
-  return <PageTitle title={`Login Page`} />;
+  return <div title={`Login Page`} />;
 }
 
 export default Login;

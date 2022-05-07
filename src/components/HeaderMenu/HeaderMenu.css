@@ -1,0 +1,16 @@
+.logo {
+    float: left;
+    height: 31px;
+    color: #fff;
+    font-size: 30px;
+    margin-right: 30px;
+}
+.ant-dropdown-trigger{
+    margin-bottom: 0;
+}
+.ant-menu-item .ant-menu-item-icon,
+.ant-menu-submenu-title .ant-menu-item-icon,
+.ant-menu-item .anticon,
+.ant-menu-submenu-title .anticon{
+    font-size: 20px !important;
+}
