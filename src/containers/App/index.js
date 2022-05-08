@@ -5,6 +5,7 @@ import { theme } from '../../constants/theme';
 import Login from "../Login/index";
 import Register from "../register";
 import BookDetail from "../bookdetail";
+import Home from "../Home/index";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Router>
           <Switch>
+            <Route path="/" component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/book/:bookId/:slugUrl" component={BookDetail} />
