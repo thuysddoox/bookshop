@@ -5,22 +5,28 @@ import { theme } from '../../constants/theme';
 import Login from "../Login/index";
 import Register from "../register";
 import BookDetail from "../bookdetail";
-import Home from "../Home/index";
+import Home from "../Home";
+import HeaderMenu from "../../components/HeaderMenu"
+import PageFooter from "../../components/PageFooter"
+import Checkout from "../Checkout";
 
 function App() {
   return (
     <div className="app">
       <ThemeProvider theme={theme}>
         <Router>
+          <HeaderMenu />
           <Switch>
-            <Route path="/" component={Home} />
+            {/* <Route path="/" component={Home} /> */}
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/book/:bookId/:slugUrl" component={BookDetail} />
-          </Switch>
-        </Router>
-      </ThemeProvider>
-    </div>
+            <Route path="/checkout" component={Checkout} />
+          </Switch >
+          <PageFooter />
+        </Router >
+      </ThemeProvider >
+    </div >
   );
 }
 

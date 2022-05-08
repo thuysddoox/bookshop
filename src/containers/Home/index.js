@@ -1,13 +1,12 @@
-import HeaderMenu from "../../components/HeaderMenu"
-import PageFooter from "../../components/PageFooter"
-import { Layout } from 'antd'
+import { Layout, Row } from 'antd'
+import BookItem from '../BookItem'
+import './Home.css'
 
 const { Content } = Layout
 
-function Home (){
-    return(
+function Home() {
+    return (
         <div>
-            <HeaderMenu />
             <Content
                 className="site-layout"
                 style={{
@@ -16,16 +15,41 @@ function Home (){
                 }}
             >
                 <div
-                    className="site-layout-background"
+                    className="site-layout-background  min-h-screen"
                     style={{
-                        padding: 24,
-                        minHeight: 380,
+                        padding: 10,
                     }}
                 >
-                    Content
+                    <p className='sub-title'>Nổi bật</p>
+                    <Row>
+                        <BookItem 
+                            img="../../../images/books/1.png"
+                            name="Văn Học"
+                            author="Quỳnh Anh"
+                        />
+                        <BookItem 
+                            img="../../../images/books/1.png"
+                            name="Văn Học"
+                            author="Quỳnh Anh"
+                        />
+                        <BookItem 
+                            img="../../../images/books/1.png"
+                            name="Văn Học"
+                            author="Quỳnh Anh"
+                        />
+                        <BookItem 
+                            img="../../../images/books/1.png"
+                            name="Văn Học"
+                            author="Quỳnh Anh"
+                        />
+                        <BookItem 
+                            img="../../../images/books/1.png"
+                            name="Văn Học"
+                            author="Quỳnh Anh"
+                        />
+                    </Row>
                 </div>
             </Content>
-            <PageFooter />
         </div>
     )
 };
