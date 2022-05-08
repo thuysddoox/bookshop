@@ -13,10 +13,10 @@ function Home() {
                 }}
             >
                 <div
-                    className="site-layout-background"
+                    className="site-layout-background  min-h-screen"
                     style={{
                         padding: 24,
-                        minHeight: 380,
+                        // minHeight: 380,
                     }}
                 >
                     Content
