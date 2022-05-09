@@ -1,17 +1,19 @@
 import { Col, Row, Form, Input, Select, Checkbox } from "antd"
+import { ShoppingCartOutlined } from "@ant-design/icons"
+import "./Checkout.css"
 
 const { Option } = Select;
 
 function Checkout(){
     return(
-        <Row style={{paddingTop: 100, paddingBottom: 160}}>
-            <Col span={12}>
+        <Row style={{paddingTop: 100, paddingBottom: 30}}>
+            <Col span={16}>
                 <Form
                     labelCol={{ span: 4 }}
-                    wrapperCol={{ span: 14 }}
+                    wrapperCol={{ span: 18 }}
                     layout="horizontal"
                 >
-                    <h2 style={{paddingLeft: 130, paddingBottom: 30, fontSize: 40}}>Hóa Đơn</h2>
+                    <h2 style={{paddingLeft: 130, paddingBottom:10, fontSize: 40}}>Hóa Đơn</h2>
                     <Form.Item 
                         label="Họ tên"
                         rules={[
@@ -64,14 +66,12 @@ function Checkout(){
                         <Input />
                     </Form.Item>
                 </Form>
-            </Col>
-            <Col span={12}>
                 <Form
                     labelCol={{ span: 4 }}
-                    wrapperCol={{ span: 14 }}
+                    wrapperCol={{ span: 18 }}
                     layout="horizontal"
                 >
-                    <h2 style={{paddingLeft: 130, paddingBottom: 30, fontSize: 40}}>Thanh toán</h2>
+                    <h2 style={{paddingLeft: 130, paddingBottom: 10, fontSize: 40}}>Thanh toán</h2>
                     <Form.Item name="checkbox-group" style={{paddingLeft: 100}}>
                         <Checkbox
                             value="sameAddress"
@@ -94,11 +94,35 @@ function Checkout(){
                         ]}
                     >
                         <Select placeholder="Chọn hình thức thanh toán">
-                        <Option value="off">Thanh toán khi nhận hàng</Option>
-                        <Option value="onl">Thanh toán bằng ví điện tử</Option>
+                            <Option value="off">Thanh toán khi nhận hàng</Option>
+                            <Option value="onl-bank">Thanh toán bằng thẻ ngân hàng</Option>
+                            <Option value="onl-card">Thanh toán bằng ví điện tử</Option>
                         </Select>
                     </Form.Item>
                 </Form>
+            </Col>
+            <Col span={8}>
+                <div className="checkout-cart-detail">
+                    <Form
+                        labelCol={{ span: 4 }}
+                        wrapperCol={{ span: 24 }}
+                        layout="horizontal"
+                    >
+                        <h2 className="checkout-cart-detail-title">
+                            Giỏ hàng
+                            <span className="cart-number">
+                                <ShoppingCartOutlined style={{paddingRight: 10}}/>
+                                <b>4</b>
+                            </span>
+                        </h2>
+                        <Form.Item label="Item 1">150.000 VNĐ</Form.Item>
+                        <Form.Item label="Item 1">150.000 VNĐ</Form.Item>
+                        <Form.Item label="Item 1">150.000 VNĐ</Form.Item>
+                        <Form.Item label="Item 1">150.000 VNĐ</Form.Item>
+                        <hr />
+                        <Form.Item label="Tổng tiền" className="checkout-sum">600.000 VNĐ</Form.Item>
+                    </Form>
+                </div>               
             </Col>
         </Row>
     )

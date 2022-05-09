@@ -1,7 +1,7 @@
 import { Layout, Menu, Dropdown, Input } from 'antd';
 import { ShoppingCartOutlined } from "@ant-design/icons"
-import './HeaderMenu.css'
 import { Link } from 'react-router-dom';
+import './HeaderMenu.css'
 
 const { Header } = Layout;
 const { Search } = Input
@@ -30,7 +30,7 @@ function HeaderMenu (){
                     <Menu.Item key={'2'}>Về Chúng Tôi</Menu.Item>
                     <Menu.Item key={'3'}>Liên Hệ</Menu.Item>
                 </Menu>
-                <Search placeholder="Tìm kiếm..."  style={{ width: 200 }} />
+                <Search placeholder="Tìm kiếm..."   />
                 <Menu
                     theme="dark"
                     mode="horizontal"
