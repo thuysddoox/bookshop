@@ -1,0 +1,19 @@
+.cart{
+    margin: 100px 3% 20px 3%;
+    padding: 30px;
+}
+.ant-typography {
+    font-size: 30px !important;
+    padding: 10px 0 20px 0;
+}
+.cart-content {
+    background-color: #f0f2f5;
+    padding: 20px;
+}
+.cart-checkout-item{
+    display: flex;
+    justify-content: space-between;
+}
+.cart-checkout-item-text{
+    font-weight: bold;
+}

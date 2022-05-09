@@ -9,6 +9,7 @@ import Home from "../Home";
 import HeaderMenu from "../../components/HeaderMenu"
 import PageFooter from "../../components/PageFooter"
 import Checkout from "../Checkout";
+import Cart from "../Cart";
 
 function App() {
   return (
@@ -17,11 +18,12 @@ function App() {
         <Router>
           <HeaderMenu />
           <Switch>
-            {/* <Route path="/" component={Home} /> */}
+            <Route path="/" exact component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/book/:bookId/:slugUrl" component={BookDetail} />
-            <Route path="/checkout" component={Checkout} />
+            <Route path="/checkout" exact component={Checkout} />
+            <Route path="/cart" exact component={Cart} />
           </Switch >
           <PageFooter />
         </Router >

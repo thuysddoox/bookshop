@@ -1,0 +1,14 @@
+.cart-item-content{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.cart-item-price{
+    font-weight: bold;
+}
+.cart-item-name{
+    font-size: 18px;
+    font-weight: bold;
+}
+.btn-quantity{
+    margin-right: 5px;
+}
