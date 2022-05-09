@@ -1,4 +1,4 @@
-import { Col, Row, Form, Input, Select, Checkbox } from "antd"
+import { Col, Row, Form, Input, Select, Checkbox, Button } from "antd"
 import { ShoppingCartOutlined } from "@ant-design/icons"
 import "./Checkout.css"
 
@@ -122,7 +122,11 @@ function Checkout(){
                         <hr />
                         <Form.Item label="Tổng tiền" className="checkout-sum">600.000 VNĐ</Form.Item>
                     </Form>
-                </div>               
+                </div> 
+                <div className="group-btn-checkout">
+                    <Button style={{height: 50, fontSize: 18}}>Hủy</Button>
+                    <Button type="primary"className="btn-checkout" style={{height: 50, fontSize: 18}}>Thanh toán</Button>
+                </div>              
             </Col>
         </Row>
     )
