@@ -36,7 +36,9 @@ function HeaderMenu (){
                     mode="horizontal"
                 >
                     <Menu.Item key={'4'}>
-                        <ShoppingCartOutlined/>
+                        <Link to="/cart">
+                            <ShoppingCartOutlined/>
+                        </Link>
                     </Menu.Item>
                     <Menu.Item key={'5'}>
                         <Dropdown

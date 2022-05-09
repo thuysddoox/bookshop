@@ -120,7 +120,10 @@ function Checkout(){
                         <Form.Item label="Item 1">150.000 VNĐ</Form.Item>
                         <Form.Item label="Item 1">150.000 VNĐ</Form.Item>
                         <hr />
-                        <Form.Item label="Tổng tiền" className="checkout-sum">600.000 VNĐ</Form.Item>
+                        <Form.Item 
+                            label="Tổng tiền" 
+                            className="checkout-sum" 
+                            style={{fontWeight: "bold", paddingBottom: 20, paddingTop: 20, marginLeft: 20}}>600.000 VNĐ</Form.Item>
                     </Form>
                 </div> 
                 <div className="group-btn-checkout">
