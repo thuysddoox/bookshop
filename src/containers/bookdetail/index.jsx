@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
+import booksApi from '../../network/api/booksApi';
 
 const BookDetailWraper = styled.div`
   .rate svg {
@@ -55,12 +56,12 @@ const BookDetailWraper = styled.div`
     transition: all 0.3 linear;
   }
 `;
-const BookDetail = (props) => {
-	const location = useLocation()
-	const { id, img, name, author, category, number_of_pages, language, publisher, price, amount } = location.state
+const BookDetail = () => {
+	const [book, setBook] = useState();
 	const [count, setCount] = useState(1);
-	const [total, setTotal] = useState(85.3);
-	const history = useHistory();
+	const [total, setTotal] = useState(book?.price ?? 0);
+	const history = useNavigate();
+
 	const increase = () => {
 		setCount(prev => prev + 1);
 	};
@@ -68,16 +69,31 @@ const BookDetail = (props) => {
 		setCount(prev => (prev > 1 ? prev - 1 : prev));
 	};
 	const handleBack = () => {
-		history.goBack();
+		history(-1);
 	};
 	useEffect(
 		() => {
-			setTotal(count * 85.3);
+			setTotal(count * book?.price);
 		},
 		[count]
 	);
+	async function getBookDetails(id) {
+		booksApi.getDetail(id)
+			.then((response) => {
+				setBook(response?.data?.data);
+			})
+			.catch((error) => {
+				console.error(error);
+			})
+	}
+	useEffect(() => {
+		const path = window.location.pathname;
+		const bookId = path.slice(path.lastIndexOf('/') + 1);
+		getBookDetails(bookId);
+		console.log('agkhsj')
+	}, [])
 	return (
-		<BookDetailWraper className="pt-24 sm:pt-28 md:pt-36 pb-20">
+		<BookDetailWraper className="pt-12 pb-20">
 			<div className="flex justify-between flex-wrap my-20 md:w-11/12 xl:w-4/5 mx-auto px-5">
 				<div className="w-full sm:w-2/3 sm:pr-6 lg:pr-12">
 					<div
@@ -88,32 +104,32 @@ const BookDetail = (props) => {
 						<span className="text-black ml-4 text-lg font-medium">Back</span>
 					</div>
 					<div className="mb-20">
-						<img src={img} alt="" className="cover h-full w-full" />
+						<img src={book?.image} alt="" className="cover h-full w-full" />
 					</div>
 					<div>
 						<h3 className="font-semibold text-xl border-b border-black border-solid pb-2">
 							Description
 						</h3>
 						<div className="mt-4">
-							<p><strong>Author:</strong> <span>{author}</span></p>
-							<p><strong>Language:</strong> <span>{language}</span></p>
-							<p><strong>Number of pages:</strong> <span>{number_of_pages}</span></p>
-							<p><strong>Publisher:</strong> <span>{publisher}</span></p>
+							<p><strong>Author:</strong> <span>{book?.author?.name}</span></p>
+							<p><strong>Language:</strong> <span>{book?.language}</span></p>
+							<p><strong>Number of pages:</strong> <span>{book?.number_of_pages}</span></p>
+							<p><strong>Publisher:</strong> <span>{book?.publisher?.name}</span></p>
 						</div>
 					</div>
 				</div>
 				<div className="w-full sm:w-1/3">
 					<h3 className="font-bold text-2xl lg:text-3xl text-red">
-						{name}
+						{book?.title}
 					</h3>
 					<div className="rate mt-2">
-						<span className="inline-block ml-2 text-gray-200 text-sm">{amount}</span>
+						<span className="inline-block ml-2 text-gray-200 text-sm">{book?.amount}</span>
 					</div>
 					<div className="mt-4">
 						<span className="text-mb font-medium text-green">Category:</span>
-						<span className="text-mb ml-2 italic">{category}</span>
+						<span className="text-mb ml-2 italic">{book?.category?.type}</span>
 					</div>
-					<h4 className="font-semibold text-2xl mt-8">{price} VND</h4>
+					<h4 className="font-semibold text-2xl mt-8">{book?.price} VND</h4>
 					<div className="flex justify-center my-4">
 						<button
 							className="inline-block w-1/3 py-3 px-4 bg-gray-200 text-black cursor-pointer font-medium decrement"
@@ -134,7 +150,7 @@ const BookDetail = (props) => {
 					<div className="flex justify-between py-2">
 						<span className="font-semibold text-base">Subtotal</span>
 						<span className="font-semibold text-base">
-							${total.toFixed(2)}
+							{total}
 						</span>
 					</div>
 					<div className="flex justify-center items-center mx-auto bg-green my-3 cursor-pointer py-3 px-3 border border-green add-btn">

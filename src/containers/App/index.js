@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Redirect } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
 import { theme } from '../../constants/theme';
 import Login from "../Login/index";
@@ -11,6 +11,7 @@ import PageFooter from "../../components/PageFooter"
 import Checkout from "../Checkout";
 import Cart from "../Cart";
 import Admin from "../admin";
+import Contact from "../contact";
 
 function App() {
   return (
@@ -18,15 +19,16 @@ function App() {
       <ThemeProvider theme={theme}>
         <Router>
           <HeaderMenu />
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
-            <Route path="/book/:bookId" component={BookDetail} />
-            <Route path="/checkout" exact component={Checkout} />
-            <Route path="/cart" exact component={Cart} />
-            <Route path="/admin" component={Admin} />
-          </Switch >
+          <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/book/:bookId" element={<BookDetail />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes >
           <PageFooter />
         </Router >
       </ThemeProvider >
