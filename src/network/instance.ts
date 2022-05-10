@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = "https://api/web";
+const API_URL = "https://bookstore-api.thangld-dev.tech/api";
 
 const axiosInstance = axios.create({
   baseURL: API_URL,

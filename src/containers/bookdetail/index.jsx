@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { useHistory } from 'react-router-dom';
 import { ArrowLeftOutlined } from '@ant-design/icons';
+import { useLocation } from 'react-router-dom';
 
 const BookDetailWraper = styled.div`
   .rate svg {
@@ -54,7 +55,9 @@ const BookDetailWraper = styled.div`
     transition: all 0.3 linear;
   }
 `;
-const BookDetail = () => {
+const BookDetail = (props) => {
+	const location = useLocation()
+	const { id, img, name, author, category, number_of_pages, language, publisher, price, amount } = location.state
 	const [count, setCount] = useState(1);
 	const [total, setTotal] = useState(85.3);
 	const history = useHistory();
@@ -85,27 +88,32 @@ const BookDetail = () => {
 						<span className="text-black ml-4 text-lg font-medium">Back</span>
 					</div>
 					<div className="mb-20">
-						<img src="../../../images/books/1.png" alt="" className="cover h-full w-full" />
+						<img src={img} alt="" className="cover h-full w-full" />
 					</div>
 					<div>
 						<h3 className="font-semibold text-xl border-b border-black border-solid pb-2">
 							Description
 						</h3>
-						<div className="mt-4">Lorem ipsum dolor</div>
+						<div className="mt-4">
+							<p><strong>Author:</strong> <span>{author}</span></p>
+							<p><strong>Language:</strong> <span>{language}</span></p>
+							<p><strong>Number of pages:</strong> <span>{number_of_pages}</span></p>
+							<p><strong>Publisher:</strong> <span>{publisher}</span></p>
+						</div>
 					</div>
 				</div>
 				<div className="w-full sm:w-1/3">
 					<h3 className="font-bold text-2xl lg:text-3xl text-red">
-						Name Book
+						{name}
 					</h3>
 					<div className="rate mt-2">
-						<span className="inline-block ml-2 text-gray-200 text-sm">100</span>
+						<span className="inline-block ml-2 text-gray-200 text-sm">{amount}</span>
 					</div>
 					<div className="mt-4">
 						<span className="text-mb font-medium text-green">Category:</span>
-						<span className="text-mb ml-2 italic">Kĩ năng</span>
+						<span className="text-mb ml-2 italic">{category}</span>
 					</div>
-					<h4 className="font-semibold text-2xl mt-8">$85.30</h4>
+					<h4 className="font-semibold text-2xl mt-8">{price} VND</h4>
 					<div className="flex justify-center my-4">
 						<button
 							className="inline-block w-1/3 py-3 px-4 bg-gray-200 text-black cursor-pointer font-medium decrement"
