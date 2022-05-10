@@ -10,6 +10,7 @@ import HeaderMenu from "../../components/HeaderMenu"
 import PageFooter from "../../components/PageFooter"
 import Checkout from "../Checkout";
 import Cart from "../Cart";
+import Admin from "../admin";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/book/:bookId" component={BookDetail} />
             <Route path="/checkout" exact component={Checkout} />
             <Route path="/cart" exact component={Cart} />
+            <Route path="/admin" component={Admin} />
           </Switch >
           <PageFooter />
         </Router >

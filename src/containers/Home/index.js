@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import BookItem from '../BookItem'
 import './Home.css'
-
+import bookApis from "../../network/api/booksApi"
 
 const { Content } = Layout
 
@@ -13,7 +13,8 @@ function Home() {
 
     useEffect(() => {
         const fetchData = async() => {
-            const response = await axios.get('https://bookstore-api.thangld-dev.tech/api/book?fbclid=IwAR1lceXTKx8XlXvUNAcF8AZSD175F7cf8kL9Usk9okMnvzsJddSFrebSFsk')
+            //const response = bookApis.getAll()
+            const response = await axios.get('https://bookstore-api.thangld-dev.tech/api/itembook')
             setBooks(response.data.data)
         }
         fetchData()
@@ -39,15 +40,17 @@ function Home() {
                     <Row>
                         {books.map((book, index) => (
                             <BookItem 
-                                key={book._id} 
-                                id={book._id}
-                                name={book.title}
-                                img={book.image}
-                                author={book.author.name}
-                                category={book.category.type}
-                                publisher={book.publisher.name}
-                                language={book.language}
-                                number_of_pages={book.number_of_pages}
+                                key={book.book._id} 
+                                id={book.book._id}
+                                amount={book.amount}
+                                price={book.price}
+                                name={book.book.title}
+                                img={book.book.image}
+                                author={book.book.author.name}
+                                category={book.book.category.type}
+                                publisher={book.book.publisher.name}
+                                language={book.book.language}
+                                number_of_pages={book.book.number_of_pages}
                             />
                         ))}
                     </Row>

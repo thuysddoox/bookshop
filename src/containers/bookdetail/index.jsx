@@ -57,7 +57,7 @@ const BookDetailWraper = styled.div`
 `;
 const BookDetail = (props) => {
 	const location = useLocation()
-	const { id, img, name, author, category, number_of_pages, language, publisher } = location.state
+	const { id, img, name, author, category, number_of_pages, language, publisher, price, amount } = location.state
 	const [count, setCount] = useState(1);
 	const [total, setTotal] = useState(85.3);
 	const history = useHistory();
@@ -107,13 +107,13 @@ const BookDetail = (props) => {
 						{name}
 					</h3>
 					<div className="rate mt-2">
-						<span className="inline-block ml-2 text-gray-200 text-sm">100</span>
+						<span className="inline-block ml-2 text-gray-200 text-sm">{amount}</span>
 					</div>
 					<div className="mt-4">
 						<span className="text-mb font-medium text-green">Category:</span>
 						<span className="text-mb ml-2 italic">{category}</span>
 					</div>
-					<h4 className="font-semibold text-2xl mt-8">$85.30</h4>
+					<h4 className="font-semibold text-2xl mt-8">{price} VND</h4>
 					<div className="flex justify-center my-4">
 						<button
 							className="inline-block w-1/3 py-3 px-4 bg-gray-200 text-black cursor-pointer font-medium decrement"

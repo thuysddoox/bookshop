@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 const { Meta } = Card;
 
 function BookItem(props){
-    const { id, img, name, author, category, number_of_pages, language, publisher } = props
+    const { id, img, name, author, category, number_of_pages, language, publisher, amount, price } = props
     const history = useHistory()
     const handleOnClickBook = (id) => {
         // console.log('id',id)
@@ -17,7 +17,9 @@ function BookItem(props){
                 author: author,
                 number_of_pages: number_of_pages,
                 language: language,
-                publisher: publisher
+                publisher: publisher, 
+                price: price,
+                amount: amount
             }
         })
     }
