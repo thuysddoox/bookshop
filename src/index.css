@@ -82,3 +82,10 @@ textarea.danger {
   border-color: #ff4444 !important;
   box-shadow: 0 0 0 0.2rem rgba(255, 68, 68, 0.25) !important;
 }
+
+.my-masonry-grid {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: auto;
+}

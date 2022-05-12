@@ -5,6 +5,7 @@ import { theme } from '../../constants/theme';
 import Login from "../Login/index";
 import Register from "../register";
 import BookDetail from "../bookdetail";
+import Books from "../books";
 import Home from "../Home";
 import HeaderMenu from "../../components/HeaderMenu"
 import PageFooter from "../../components/PageFooter"
@@ -12,6 +13,7 @@ import Checkout from "../Checkout";
 import Cart from "../Cart";
 import Admin from "../admin";
 import Contact from "../contact";
+import Profile from "../profile";
 
 function App() {
   return (
@@ -28,9 +30,11 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/books" element={<Books />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes >
-          <PageFooter />
         </Router >
+        <PageFooter />
       </ThemeProvider >
     </div >
   );

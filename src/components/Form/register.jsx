@@ -113,7 +113,7 @@ const RegisterForm = () => {
               </label>
               <input
                 type="text"
-                name="name"
+                name="fullname"
                 onChange={handleChange}
                 value={values?.fullname ?? ''}
                 id="name"

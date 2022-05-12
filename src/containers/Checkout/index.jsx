@@ -171,7 +171,7 @@ function Checkout() {
                             cart?.item_book.map((item, id) => (
                                 <div key={id} className="border-b border-green border-solid p-2 flex items-center">
                                     <span className="w-1/3 inline-block">{item?.book?.title}</span>
-                                    <span className="w-2/3 inline-block">{item?.quantity} * {item?.price / item?.quantity} = {item?.price} VNĐ</span>
+                                    <span className="w-2/3 inline-block">{item?.quantity} * {item?.price} = {item?.quantity * item?.price} VNĐ</span>
                                 </div>
                             ))
                         }

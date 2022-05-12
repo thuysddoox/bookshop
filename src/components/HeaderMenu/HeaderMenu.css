@@ -10,6 +10,10 @@
   margin-bottom: 0;
 }
 
+.ant-input-group-wrapper.ant-input-search {
+  width: 450px;
+}
+
 .ant-menu-item .ant-menu-item-icon,
 .ant-menu-submenu-title .ant-menu-item-icon,
 .ant-menu-item .anticon,

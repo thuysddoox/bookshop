@@ -101,7 +101,11 @@ const LoginForm = () => {
       })
   }
   async function LoginFace() {
-    window.open('https://bookstore-api.thangld-dev.tech/api/auth/facebook')
+    window.open('https://bookstore-api.thangld-dev.tech/api/auth/facebook');
+    // const response = await login_facebook()
+    console.log(window.location.pathname);
+
+    // console.log(response)
   }
   useEffect(() => {
 
@@ -204,7 +208,7 @@ const LoginForm = () => {
           </div>
           <div>
             <div className="flex flex-wrap justify-between mt-4">
-              <div className="w-full " onClick={() => LoginFace()}>
+              <div className="w-full " onClick={LoginFace}>
                 <div className="flex items-center border-solid justify-center border-2 border-green py-1 rounded-md cursor-pointer sm:mr-2">
                   <img
                     src={`images/icons/facebook.png`}
