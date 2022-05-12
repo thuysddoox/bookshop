@@ -48,16 +48,18 @@ function HeaderMenu() {
                     justifyContent: "space-between",
                 }}>
                 <div className="logo">Bookstore</div>
-                <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
+                <Menu theme="dark" mode="horizontal" >
                     <Menu.Item key={"1"}>
-                        <a href="/">Trang Chủ</a>
+                        <Link to="/">Trang Chủ</Link>
                     </Menu.Item>
                     <Menu.Item key={"2"}>Về Chúng Tôi</Menu.Item>
                     <Menu.Item key={"3"}>
                         <Link to="/contact">Liên Hệ</Link>
                     </Menu.Item>
                 </Menu>
-                <Search placeholder="Tìm kiếm..." />
+
+                <Search placeholder="Tìm kiếm..." onSearch={(value) => { console.log(value); history(`/books?keysearch=${value}`) }} />
+
                 <Menu theme="dark" mode="horizontal">
                     <Menu.Item key={"4"}>
                         <Link to="/cart" className="cart">
@@ -69,9 +71,9 @@ function HeaderMenu() {
                         <Dropdown
                             overlay={
                                 <Menu key="dropdown">
-                                    <Menu.Item key="dropdown-1">Tài Khoản</Menu.Item>
+                                    <Menu.Item key="dropdown-1"><Link to="/profile">Tài Khoản</Link></Menu.Item>
                                     <Menu.Item key="dropdown-2" onClick={() => { localStorage.clear() }}>
-                                        <Link to="/login">Đăng Xuất</Link>
+                                        <Link to="/login" onClick={() => { window.location.reload() }}>Đăng Xuất</Link>
                                     </Menu.Item>
                                 </Menu>
                             }

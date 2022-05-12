@@ -23,7 +23,7 @@ function CartItem(props) {
                     <Image height={'100%'} src={img}></Image>
                 </Col>
                 <Col span={17} className="cart-item-content">
-                    <p className="cart-item-price">{price / quantity} VNĐ</p>
+                    <p className="cart-item-price">{price} VNĐ</p>
                     <p className="cart-item-name">{name}</p>
                     <p>Thể loại: {category}</p>
                     <div className="group-btn-quantity">

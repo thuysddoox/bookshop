@@ -58,7 +58,7 @@ const RegisterForm = () => {
   async function send(data) {
     console.log(data);
     setIsLoading(true);
-    register(data).then((response) => {
+    register({ ...data, role: '6275dc06a46ee8cd5761c4c8' }).then((response) => {
       console.log(response);
       setIsLoading(false);
       setStatus(200);
@@ -113,7 +113,7 @@ const RegisterForm = () => {
               </label>
               <input
                 type="text"
-                name="name"
+                name="fullname"
                 onChange={handleChange}
                 value={values?.fullname ?? ''}
                 id="name"

@@ -42,7 +42,7 @@ function Checkout() {
                 if (response?.data?.url) {
                     window.open(response?.data?.url);
                     history("/profile");
-                    console.log(response?.data?.url)
+                    window.location.reload();
                 }
             }).catch(function (err) {
                 console.log(err);
@@ -171,7 +171,7 @@ function Checkout() {
                             cart?.item_book.map((item, id) => (
                                 <div key={id} className="border-b border-green border-solid p-2 flex items-center">
                                     <span className="w-1/3 inline-block">{item?.book?.title}</span>
-                                    <span className="w-2/3 inline-block">{item?.quantity} * {item?.price / item?.quantity} = {item?.price} VNĐ</span>
+                                    <span className="w-2/3 inline-block">{item?.quantity} * {item?.price} = {item?.quantity * item?.price} VNĐ</span>
                                 </div>
                             ))
                         }
@@ -183,7 +183,7 @@ function Checkout() {
                     </Form>
                 </div>
                 <div className="group-btn-checkout">
-                    <Button className="text-white bg-green block text-center h-10 rounded-lg cursor-pointer inline-block" >Hoàn Thành</Button>
+                    <Button className="text-white bg-green block text-center h-10 rounded-lg cursor-pointer inline-block" onClick={() => { window.location.reload(); history('/profile') }} >Hoàn Thành</Button>
                     <Button type="primary" className="btn-checkout text-white bg-green block text-center h-10 rounded-lg cursor-pointer inline-block" onClick={() => { payment() }}>Thanh toán</Button>
                 </div>
             </Col>

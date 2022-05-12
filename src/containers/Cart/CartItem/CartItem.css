@@ -1,14 +1,25 @@
-.cart-item-content{
-    padding-left: 20px;
-    padding-right: 20px;
+.cart-item-content {
+  padding-left: 20px;
+  padding-right: 20px;
 }
-.cart-item-price{
-    font-weight: bold;
+
+.cart-item-price {
+  font-weight: bold;
 }
-.cart-item-name{
-    font-size: 18px;
-    font-weight: bold;
+
+.cart-item-name {
+  font-size: 18px;
+  font-weight: bold;
 }
-.btn-quantity{
-    margin-right: 5px;
+
+.btn-quantity {
+  margin-right: 5px;
+}
+
+.ant-image-preview-img {
+  margin: auto !important;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%)!important;
 }

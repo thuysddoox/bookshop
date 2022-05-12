@@ -121,6 +121,7 @@ const BookDetail = () => {
 				// console.log(response);
 				// getCart();
 				alert("Added book successfully!");
+				window.location.reload();
 			})
 			.catch(error => {
 				console.log(error);

@@ -57,6 +57,7 @@ function Cart() {
             .then(response => {
                 // console.log(response);
                 getCart();
+                window.location.reload();
                 alert(response?.data?.message);
             })
             .catch(error => {
@@ -79,6 +80,7 @@ function Cart() {
             .then(response => {
                 localStorage.setItem('orderId', response?.data?.data?._id);
                 localStorage.setItem('cartId', response?.data?.data?.cart);
+                localStorage.setItem('number_items', 0);
                 console.log(response);
                 history('/checkout');
             }).catch(error => { console.log(error); })
