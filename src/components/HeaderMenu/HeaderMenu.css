@@ -1,20 +1,43 @@
 .logo {
-    float: left;
-    height: 31px;
-    color: #fff;
-    font-size: 30px;
-    margin-right: 30px;
+  float: left;
+  height: 31px;
+  color: #fff;
+  font-size: 30px;
+  margin-right: 30px;
 }
-.ant-dropdown-trigger{
-    margin-bottom: 0;
+
+.ant-dropdown-trigger {
+  margin-bottom: 0;
 }
+
 .ant-menu-item .ant-menu-item-icon,
 .ant-menu-submenu-title .ant-menu-item-icon,
 .ant-menu-item .anticon,
-.ant-menu-submenu-title .anticon{
-    font-size: 20px !important;
+.ant-menu-submenu-title .anticon {
+  font-size: 20px !important;
 }
-.ant-input-group-wrapper{
-    display: flex !important;
-    align-items: center !important;
+
+.ant-input-group-wrapper {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.cart {
+  position: relative;
+}
+
+.cart .quantity {
+  position: absolute;
+  top: 20%;
+  right: 10%;
+  border-radius: 50%;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  width: 20px;
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  color: white;
+  background-color: red;
 }

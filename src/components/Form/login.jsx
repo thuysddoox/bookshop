@@ -1,10 +1,11 @@
 
 import styled from '@emotion/styled';
 import { useEffect, useRef, useState } from 'react';
-import { login } from '../../network/api/login';
+import { login, login_facebook } from '../../network/api/login';
 import useForm from './useForm';
 import validate from './validateRules';
 import { useNavigate } from 'react-router-dom';
+import { getUser } from '../../network/api/user';
 const LoginWrapper = styled.div`
   input:focus {
     border-color: var(--color-green) !important;
@@ -62,6 +63,7 @@ const LoginForm = () => {
         localStorage.setItem('access_token', JSON.stringify(response?.data?.access_token));
         localStorage.setItem('logined', "true");
         localStorage.setItem('username', JSON.stringify(response?.data?.user?.username));
+        localStorage.setItem('userId', JSON.stringify(response?.data?.user?._id));
         history("/")
 
       })
@@ -77,9 +79,36 @@ const LoginForm = () => {
 
   useEffect(() => {
     return () => {
-      // clearTimeout(statusTimeout);
+      clearTimeout(statusTimeout);
     }
   })
+
+  function LoginJWT() {
+    getUser(JSON.parse(localStorage.getItem("access_token")), JSON.parse(localStorage.getItem("username")))
+      .then(response => {
+        setIsLoading(false);
+        setStatus(200);
+        setIsSuccess(true);
+        history("/");
+        // window.location.href("/")
+      })
+      .catch(err => {
+        setIsSuccess(false);
+        setIsLoading(false);
+        setStatus(400);
+        // clearForm();
+        statusTimeout = setTimeout(() => { setStatus(0) }, 5000)
+      })
+  }
+  async function LoginFace() {
+    window.open('https://bookstore-api.thangld-dev.tech/api/auth/facebook')
+  }
+  useEffect(() => {
+
+    if (localStorage.getItem("logined")) {
+      LoginJWT();
+    }
+  }, [])
   return (
     <LoginWrapper className="bg-white w-11/12 sm:w-3/5 mx-auto text-green pt-10 pb-14 max-w-md sm:max-w-xl">
       <div>
@@ -175,7 +204,7 @@ const LoginForm = () => {
           </div>
           <div>
             <div className="flex flex-wrap justify-between mt-4">
-              <div className="w-full sm:w-1/2">
+              <div className="w-full " onClick={() => LoginFace()}>
                 <div className="flex items-center border-solid justify-center border-2 border-green py-1 rounded-md cursor-pointer sm:mr-2">
                   <img
                     src={`images/icons/facebook.png`}
@@ -186,14 +215,14 @@ const LoginForm = () => {
                   </span>
                 </div>
               </div>
-              <div className="w-full sm:w-1/2">
+              {/* <div className="w-full sm:w-1/2">
                 <div className="flex items-center border-solid justify-center border-2 border-green py-1 rounded-md cursor-pointer mt-4 sm:mt-0 sm:ml-2">
                   <img src={`images/icons/google.png`} className="h-7" />
                   <span className="text-green text-mb font-medium ml-2">
                     Google
                   </span>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </form>

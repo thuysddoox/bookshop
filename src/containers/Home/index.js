@@ -12,6 +12,7 @@ function Home() {
     const [books, setBooks] = useState([])
 
     useEffect(() => {
+        // window.location.reload(false);
         const fetchData = async () => {
             //const response = bookApis.getAll()
             const response = await axios.get('https://bookstore-api.thangld-dev.tech/api/itembook')
@@ -41,7 +42,7 @@ function Home() {
                         {books.map((book, index) => (
                             <BookItem
                                 key={index}
-                                id={book.book?._id}
+                                id={book._id}
                                 amount={book.amount}
                                 price={book.price}
                                 name={book.book?.title}
