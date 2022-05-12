@@ -42,7 +42,7 @@ function Checkout() {
                 if (response?.data?.url) {
                     window.open(response?.data?.url);
                     history("/profile");
-                    console.log(response?.data?.url)
+                    window.location.reload();
                 }
             }).catch(function (err) {
                 console.log(err);
@@ -183,7 +183,7 @@ function Checkout() {
                     </Form>
                 </div>
                 <div className="group-btn-checkout">
-                    <Button className="text-white bg-green block text-center h-10 rounded-lg cursor-pointer inline-block" >Hoàn Thành</Button>
+                    <Button className="text-white bg-green block text-center h-10 rounded-lg cursor-pointer inline-block" onClick={() => { window.location.reload(); history('/profile') }} >Hoàn Thành</Button>
                     <Button type="primary" className="btn-checkout text-white bg-green block text-center h-10 rounded-lg cursor-pointer inline-block" onClick={() => { payment() }}>Thanh toán</Button>
                 </div>
             </Col>

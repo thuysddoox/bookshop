@@ -65,6 +65,7 @@ const LoginForm = () => {
         localStorage.setItem('username', JSON.stringify(response?.data?.user?.username));
         localStorage.setItem('userId', JSON.stringify(response?.data?.user?._id));
         history("/")
+        window.location.reload();
 
       })
       .catch((error) => {

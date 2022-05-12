@@ -12,7 +12,7 @@ function BookItem(props) {
                 <Card
                     hoverable
                     style={{ marginRight: 20, marginBottom: 20 }}
-                    cover={<img alt="example" src={img} style={{ height: 200 }} />}
+                    cover={<img alt="example" src={img} style={{ height: 240 }} className="object-contain py-4" />}
                 >
                     <Meta title={name} description={author} />
                 </Card>
