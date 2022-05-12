@@ -161,13 +161,15 @@ function Admin(){
   
     return(
       <div style={{paddingTop: 100, paddingLeft: 40, paddingRight:40}}>
-        <Button className="text-white bg-green block text-center h-10 rounded-lg cursor-pointer inline-block" style={{marginBottom: 20}} onClick={showModalAdd}>Thêm</Button>
+        <Button className="text-white bg-green block text-center h-10 rounded-lg cursor-pointer inline-block" style={{marginBottom: 20}} 
+                onClick={showModalAdd}>Thêm
+        </Button>
         <Modal 
           title="Thêm sách" 
           visible={isModalVisible}
           onCancel={handleCancel}
           footer={[
-            <Button form="myForm" key="submit" htmlType="submit" type="primary">
+            <Button className="text-white bg-green block text-center h-10 rounded-lg cursor-pointer inline-block" form="myForm" key="submit" htmlType="submit" type="primary">
                 Submit
             </Button>
           ]}>
