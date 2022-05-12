@@ -71,11 +71,7 @@ const BookDetail = () => {
 		setCount(prev => (prev > 1 ? prev - 1 : prev));
 	};
 	const handleBack = () => {
-<<<<<<< HEAD
-		history.push("/");
-=======
 		history(-1);
->>>>>>> c13a648fa9bd4fb9a461e945dd94dad7e01c8f1c
 	};
 	useEffect(
 		() => {

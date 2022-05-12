@@ -8,7 +8,7 @@ function Admin(){
       title: 'Sach',
       dataIndex: 'title',
       key: 'title',
-      width: 300,
+      //width: 300,
     },
     {
       title: 'Giá',
@@ -51,7 +51,7 @@ function Admin(){
       title: 'Ảnh',
       dataIndex: 'image',
       key: 'image',
-      width: 300,
+      // width: 300,
     },
     {
       title: 'Nhà xuất bản',
@@ -64,7 +64,7 @@ function Admin(){
       key: 'id',
       render: (id) => (
         <Space size="middle">
-          <a>Sửa</a>
+          <a onClick={showModalAdd}>Sửa</a>
           <Popconfirm
             title="Are you sure to delete this book? "
             onConfirm={onConfirmDelete}
@@ -93,11 +93,13 @@ function Admin(){
    const onConfirmDelete = async () => {
       try{
         console.log(isDelete)
-        await axios.patch('https://bookstore-api.thangld-dev.tech/api/itembook/delete', {'_id': isDelete})
+        const response =await axios.patch('https://bookstore-api.thangld-dev.tech/api/itembook/delete', {id: isDelete})
+        console.log(response)
         notification["success"]({
           message: "Delete book successful",
           placement: "topRight"
         })
+        window.location.reload()
         //setBooks(books => books.filter(book => book._id !== isDelete))
       } catch(e){
         notification["error"]({
@@ -113,7 +115,7 @@ function Admin(){
             const response = await axios.get('https://bookstore-api.thangld-dev.tech/api/itembook')
             setBooks(
               response.data.data.map(row => ({
-                id: row.book._id,
+                id: row._id,
                 title: row.book.title,
                 price: row.price,
                 amount: row.amount,
@@ -151,14 +153,19 @@ function Admin(){
       }
     }
 
+    const handleCancel = () => {
+      setIsModalVisible(false);
+    }
+
 
   
     return(
       <div style={{paddingTop: 100, paddingLeft: 40, paddingRight:40}}>
-        <Button type="primary" style={{marginBottom: 20}} onClick={showModalAdd}>Thêm</Button>
+        <Button className="text-white bg-green block text-center h-10 rounded-lg cursor-pointer inline-block" style={{marginBottom: 20}} onClick={showModalAdd}>Thêm</Button>
         <Modal 
           title="Thêm sách" 
-          visible={isModalVisible}  
+          visible={isModalVisible}
+          onCancel={handleCancel}
           footer={[
             <Button form="myForm" key="submit" htmlType="submit" type="primary">
                 Submit
