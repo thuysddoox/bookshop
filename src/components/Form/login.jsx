@@ -64,7 +64,11 @@ const LoginForm = () => {
         localStorage.setItem('logined', "true");
         localStorage.setItem('username', JSON.stringify(response?.data?.user?.username));
         localStorage.setItem('userId', JSON.stringify(response?.data?.user?._id));
-        history("/")
+        if (response?.data?.user?.role?.name === "admin")
+          history("/admin")
+        else
+          history("/")
+
         window.location.reload();
 
       })

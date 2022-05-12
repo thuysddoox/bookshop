@@ -73,7 +73,7 @@ function HeaderMenu() {
                                 <Menu key="dropdown">
                                     <Menu.Item key="dropdown-1"><Link to="/profile">Tài Khoản</Link></Menu.Item>
                                     <Menu.Item key="dropdown-2" onClick={() => { localStorage.clear() }}>
-                                        <Link to="/login">Đăng Xuất</Link>
+                                        <Link to="/login" onClick={() => { window.location.reload() }}>Đăng Xuất</Link>
                                     </Menu.Item>
                                 </Menu>
                             }
