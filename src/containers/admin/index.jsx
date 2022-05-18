@@ -102,15 +102,15 @@ function Admin() {
 
   const onConfirmDelete = async () => {
     try {
-      console.log(isDelete)
       const response = await axios.patch('https://bookstore-api.thangld-dev.tech/api/itembook/delete', { id: isDelete })
-      console.log(response)
+      console.log(response.data)
       notification["success"]({
         message: "Delete book successful",
         placement: "topRight"
       })
-      window.location.reload()
-      //setBooks(books => books.filter(book => book._id !== isDelete))
+      setBooks(books => books.id === isDelete)
+      console.log('bôks', books)
+       //window.location.reload()
     } catch (e) {
       notification["error"]({
         message: "Delete book failed",
@@ -142,8 +142,7 @@ function Admin() {
     fetchData()
   }, [])
 
-  const onFinishModal = async (newBook) => {
-    console.log(newBook.number_of_pages)
+  const onFinishModal = (newBook) => {
     setIsModalVisible(false);
     const data = {
       'author_name': newBook.author,
@@ -156,35 +155,29 @@ function Admin() {
       'image': newBook.image,
       'category_id': newBook.category_id
     }
-    console.log(data)
-    // try {
-    //   const response = await axios.post('https://bookstore-api.thangld-dev.tech/api/book/create', { data })
-    //   console.log(response.data.data._id)
-    //   try {
-    //       const dataItem = {
-    //         'amount': newBook.amount,
-    //         'price': newBook.price,
-    //         'book': response.data.data._id
-    //       }
-    //       console.log(dataItem)
-    //       const res = await axios.post('https://bookstore-api.thangld-dev.tech/api/itembook/create', { dataItem })
-    //       console.log('res:', res.data.data)
-    //       notification["success"]({
-    //       message: "Add book successful",
-    //       placement: "topRight"
-    //     })
-    //   } catch (e){
-    //      notification["error"]({
-    //     message: "Add book failed",
-    //     placement: "topRight"
-    //   })
-    //   }
-    // } catch (e) {
-    //   notification["error"]({
-    //     message: "Add book failed",
-    //     placement: "topRight"
-    //   })
-    // }
+    axios.post('https://bookstore-api.thangld-dev.tech/api/book/create', { data })
+    .then((response) => {
+      const dataItem = {
+        'amount': newBook.amount,
+        'price': newBook.price,
+        'book': response.data.data._id
+      }
+      return dataItem
+    })
+    .then((dataItem) => {
+      console.log('data post item book', dataItem)//eo hieu lun a
+      axios.post('https://bookstore-api.thangld-dev.tech/api/itembook/create', { dataItem })
+      notification["success"]({
+          message: "Add book successful",
+          placement: "topRight"
+        })
+    })
+    .catch((e) => {
+      notification["error"]({
+        message: "Add book failed",
+        placement: "topRight"
+      })
+    })
   }
 
   const handleCancel = () => {
@@ -265,7 +258,6 @@ function Admin() {
           <Form.Item name="category_id" label="Thể loại" rules={[{ required: true }]}>
           <Select
             placeholder="Chọn thể loại"
-            //onChange={this.onCategoryChange}
             allowClear
           >
             <Option value="6276a5b8f95484e7d1935f0d">Đời sống</Option>
