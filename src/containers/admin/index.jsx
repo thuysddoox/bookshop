@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Table, Space, Popconfirm, notification, Button, Modal, Form, Input } from 'antd';
+import { Table, Space, Popconfirm, notification, Button, Modal, Form, Input, Select, DatePicker } from 'antd';
 import axios from 'axios'
+
+const { Option } = Select;
 
 function Admin() {
   const columns = [
@@ -24,6 +26,12 @@ function Admin() {
       title: 'Tác giả',
       dataIndex: 'author',
       key: 'author',
+      width: 300,
+    },
+    {
+      title: 'Tiểu sử',
+      dataIndex: 'biography',
+      key: 'biography',
       width: 300,
     },
     {
@@ -135,31 +143,63 @@ function Admin() {
   }, [])
 
   const onFinishModal = async (newBook) => {
-    console.log(newBook)
+    console.log(newBook.number_of_pages)
     setIsModalVisible(false);
     const data = {
-      'price': newBook
+      'author_name': newBook.author,
+      'biography': newBook.biography,
+      'publish_name': newBook.publisher,
+      'title': newBook.name,
+      'number_of_pages': newBook.number_of_pages,
+      'language': newBook.language,
+      'publication_date': newBook.publication_date,
+      'image': newBook.image,
+      'category_id': newBook.category_id
     }
-    try {
-      await axios.post('https://bookstore-api.thangld-dev.tech/api/itembook/create', { data })
-      notification["success"]({
-        message: "Add book successful",
-        placement: "topRight"
-      })
-      //setBooks(books => books.filter(book => book._id !== isDelete))
-    } catch (e) {
-      notification["error"]({
-        message: "Add book failed",
-        placement: "topRight"
-      })
-    }
+    console.log(data)
+    // try {
+    //   const response = await axios.post('https://bookstore-api.thangld-dev.tech/api/book/create', { data })
+    //   console.log(response.data.data._id)
+    //   try {
+    //       const dataItem = {
+    //         'amount': newBook.amount,
+    //         'price': newBook.price,
+    //         'book': response.data.data._id
+    //       }
+    //       console.log(dataItem)
+    //       const res = await axios.post('https://bookstore-api.thangld-dev.tech/api/itembook/create', { dataItem })
+    //       console.log('res:', res.data.data)
+    //       notification["success"]({
+    //       message: "Add book successful",
+    //       placement: "topRight"
+    //     })
+    //   } catch (e){
+    //      notification["error"]({
+    //     message: "Add book failed",
+    //     placement: "topRight"
+    //   })
+    //   }
+    // } catch (e) {
+    //   notification["error"]({
+    //     message: "Add book failed",
+    //     placement: "topRight"
+    //   })
+    // }
   }
 
   const handleCancel = () => {
     setIsModalVisible(false);
   }
 
-
+  const config = {
+  rules: [
+    {
+      type: 'object',
+      required: true,
+      message: 'Please select time!',
+    },
+  ],
+};
 
   return (
     <div style={{ paddingTop: 100, paddingLeft: 40, paddingRight: 40 }}>
@@ -215,12 +255,26 @@ function Admin() {
           </Form.Item>
 
           <Form.Item
-            label="Thể loại"
-            name="category"
-            rules={[{ required: true, message: 'Điền thể loại!' }]}
+            label="Tieu su"
+            name="biography"
+            rules={[{ required: true, message: 'Điền tieu su!' }]}
           >
             <Input />
           </Form.Item>
+
+          <Form.Item name="category_id" label="Thể loại" rules={[{ required: true }]}>
+          <Select
+            placeholder="Chọn thể loại"
+            //onChange={this.onCategoryChange}
+            allowClear
+          >
+            <Option value="6276a5b8f95484e7d1935f0d">Đời sống</Option>
+            <Option value="6276a5e8f95484e7d1935f10">Phát triển bản thân</Option>
+            <Option value="6276a8e2f95484e7d1935f41">Truyện, tiểu thuyết</Option>
+            <Option value="6276a916f95484e7d1935f43">Chính trị - pháp luật</Option>
+            <Option value="o6276a93ff95484e7d1935f45">Văn hoá xã hội, Lịch sử</Option>
+          </Select>
+        </Form.Item>
 
           <Form.Item
             label="Số trang"
@@ -238,13 +292,9 @@ function Admin() {
             <Input />
           </Form.Item>
 
-          <Form.Item
-            label="Ngày phát hành"
-            name="publication_date"
-            rules={[{ required: true, message: 'Điền ngày phát hành!' }]}
-          >
-            <Input />
-          </Form.Item>
+          <Form.Item name="publication_date" label="DatePicker" {...config}>
+            <DatePicker />
+          </Form.Item>    
 
           <Form.Item
             label="Ảnh"
