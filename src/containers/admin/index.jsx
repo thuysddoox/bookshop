@@ -98,8 +98,6 @@ function Admin() {
   };
 
 
-
-
   const onConfirmDelete = async () => {
     try {
       const response = await axios.patch('https://bookstore-api.thangld-dev.tech/api/itembook/delete', { id: isDelete })
@@ -108,9 +106,7 @@ function Admin() {
         message: "Delete book successful",
         placement: "topRight"
       })
-      setBooks(books => books.id === isDelete)
-      console.log('bôks', books)
-       //window.location.reload()
+      window.location.reload()
     } catch (e) {
       notification["error"]({
         message: "Delete book failed",
@@ -123,8 +119,9 @@ function Admin() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get('https://bookstore-api.thangld-dev.tech/api/itembook')
+      const filterDeleted = response.data.data.filter(book => book.book.is_active === true)
       setBooks(
-        response.data.data.map(row => ({
+        filterDeleted.map(row => ({
           id: row._id,
           title: row.book.title,
           price: row.price,
@@ -248,9 +245,9 @@ function Admin() {
           </Form.Item>
 
           <Form.Item
-            label="Tieu su"
+            label="Tiểu sử"
             name="biography"
-            rules={[{ required: true, message: 'Điền tieu su!' }]}
+            rules={[{ required: true, message: 'Điền tiểu sử!' }]}
           >
             <Input />
           </Form.Item>
@@ -284,7 +281,7 @@ function Admin() {
             <Input />
           </Form.Item>
 
-          <Form.Item name="publication_date" label="DatePicker" {...config}>
+          <Form.Item name="publication_date" label="Ngày phát hành" {...config}>
             <DatePicker />
           </Form.Item>    
 
