@@ -74,7 +74,7 @@ function Admin() {
       key: 'id',
       render: (id) => (
         <Space size="middle">
-          <a onClick={showModalAdd}>Sửa</a>
+          <a onClick={() => handleEditModal(id.id)}>Sửa</a>
           <Popconfirm
             title="Are you sure to delete this book? "
             onConfirm={onConfirmDelete}
@@ -90,18 +90,24 @@ function Admin() {
 
   const [books, setBooks] = useState([])
   const [isDelete, setIsDelete] = useState(null)
-
+  const [editModal, setEditModal] = useState(null)
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModalAdd = () => {
     setIsModalVisible(true);
   };
 
+  const handleEditModal = (id) => {
+    showModalAdd()
+    console.log('book',books)
+    const editBook = books.filter(book => book.id === id)
+    setEditModal(editBook)
+    console.log('edit',editModal)
+  }
 
   const onConfirmDelete = async () => {
     try {
-      const response = await axios.patch('https://bookstore-api.thangld-dev.tech/api/itembook/delete', { id: isDelete })
-      console.log(response.data)
+      await axios.patch('https://bookstore-api.thangld-dev.tech/api/itembook/delete', { id: isDelete })
       notification["success"]({
         message: "Delete book successful",
         placement: "topRight"
@@ -119,7 +125,7 @@ function Admin() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get('https://bookstore-api.thangld-dev.tech/api/itembook')
-      const filterDeleted = response.data.data.filter(book => book.book.is_active === true)
+      const filterDeleted = response.data.data.filter(book => book.book?.is_active === true)
       setBooks(
         filterDeleted.map(row => ({
           id: row._id,
@@ -148,12 +154,15 @@ function Admin() {
       'title': newBook.name,
       'number_of_pages': newBook.number_of_pages,
       'language': newBook.language,
-      'publication_date': newBook.publication_date,
+      'publication_date': newBook.publication_date._d.toString(),
       'image': newBook.image,
-      'category_id': newBook.category_id
+      'category_id': newBook.category_id,
+      'discription': 'abc'
     }
-    axios.post('https://bookstore-api.thangld-dev.tech/api/book/create', { data })
+    console.log('book: ', data)
+    axios.post('https://bookstore-api.thangld-dev.tech/api/book/create',  data )
     .then((response) => {
+      console.log('response create bôk:', response)
       const dataItem = {
         'amount': newBook.amount,
         'price': newBook.price,
@@ -162,8 +171,11 @@ function Admin() {
       return dataItem
     })
     .then((dataItem) => {
-      console.log('data post item book', dataItem)//eo hieu lun a
-      axios.post('https://bookstore-api.thangld-dev.tech/api/itembook/create', { dataItem })
+      console.log('data post itembook', dataItem)//eo hieu lun a
+      return axios.post('https://bookstore-api.thangld-dev.tech/api/itembook/create',  dataItem )
+    })
+    .then((data) => {
+      console.log('response create item bôk:', data)
       notification["success"]({
           message: "Add book successful",
           placement: "topRight"
@@ -195,7 +207,7 @@ function Admin() {
     <div style={{ paddingTop: 100, paddingLeft: 40, paddingRight: 40 }}>
       <Button className="text-white bg-green block text-center h-10 rounded-lg cursor-pointer inline-block" style={{ marginBottom: 20 }} onClick={showModalAdd}>Thêm</Button>
       <Modal
-        title="Thêm sách"
+        title={editModal ? "Sửa sách" : "Thêm sách"}
         visible={isModalVisible}
         onCancel={handleCancel}
         footer={[
@@ -208,7 +220,7 @@ function Admin() {
           name="basic"
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
-          initialValues={{ remember: true }}
+          initialValues={editModal}
           autoComplete="off"
           onFinish={onFinishModal}
         >
