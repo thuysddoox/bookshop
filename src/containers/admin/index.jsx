@@ -109,7 +109,7 @@ function Admin() {
     console.log('book', books)
     const editBook = books.filter(book => book.id === id)[0]
     setEditModal({
-      ...editBook, name: editBook.title, publication_date: moment(editBook.publication_date, 'YYYY-MM-DD'), category_id: defaultCategory[editBook.category]
+      ...editBook, name: editBook.title, publication_date: moment(editBook.publication_date, 'DD-MM-YYYY'), category_id: defaultCategory[editBook.category]
     })
     console.log(editBook)
   }
