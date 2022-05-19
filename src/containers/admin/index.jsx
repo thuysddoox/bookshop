@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Table, Space, Popconfirm, notification, Button, Modal, Form, Input, Select, DatePicker } from 'antd';
 import axios from 'axios'
-
+import moment from 'moment';
 const { Option } = Select;
 
 function Admin() {
@@ -55,6 +55,7 @@ function Admin() {
       title: 'Ngày phát hành',
       dataIndex: 'publication_date',
       key: 'publication_date',
+      width: 150,
     },
     {
       title: 'Ảnh',
@@ -92,17 +93,25 @@ function Admin() {
   const [isDelete, setIsDelete] = useState(null)
   const [editModal, setEditModal] = useState(null)
   const [isModalVisible, setIsModalVisible] = useState(false);
-
+  const defaultCategory = {
+    'Đời sống': '6276a5b8f95484e7d1935f0d',
+    'Phát triển bản thân': '6276a5e8f95484e7d1935f10',
+    'Truyện, tiểu thuyết': '6276a8e2f95484e7d1935f41',
+    'Chính trị - pháp luật': '6276a916f95484e7d1935f43',
+    'Văn hoá xã hội, Lịch sử': 'o6276a93ff95484e7d1935f45'
+  }
   const showModalAdd = () => {
     setIsModalVisible(true);
   };
 
   const handleEditModal = (id) => {
     showModalAdd()
-    console.log('book',books)
-    const editBook = books.filter(book => book.id === id)
-    setEditModal(editBook)
-    console.log('edit',editModal)
+    console.log('book', books)
+    const editBook = books.filter(book => book.id === id)[0]
+    setEditModal({
+      ...editBook, name: editBook.title, publication_date: moment(editBook.publication_date, 'YYYY-MM-DD'), category_id: defaultCategory[editBook.category]
+    })
+    console.log(editBook)
   }
 
   const onConfirmDelete = async () => {
@@ -134,7 +143,7 @@ function Admin() {
           amount: row.amount,
           number_of_pages: row.book.number_of_pages,
           language: row.book.language,
-          publication_date: row.book.publication_date,
+          publication_date: new Date(row.book.publication_date).toLocaleDateString(),
           image: row.book.image,
           author: row.book.author.name,
           publisher: row.book.publisher.name,
@@ -148,45 +157,46 @@ function Admin() {
   const onFinishModal = (newBook) => {
     setIsModalVisible(false);
     const data = {
-      'author_name': newBook.author,
-      'biography': newBook.biography,
-      'publish_name': newBook.publisher,
-      'title': newBook.name,
-      'number_of_pages': newBook.number_of_pages,
-      'language': newBook.language,
-      'publication_date': newBook.publication_date._d.toString(),
-      'image': newBook.image,
-      'category_id': newBook.category_id,
-      'discription': 'abc'
+      author_name: newBook.author,
+      biography: newBook.biography,
+      publish_name: newBook.publisher,
+      title: newBook.name,
+      number_of_pages: newBook.number_of_pages,
+      language: newBook.language,
+      publication_date: newBook.publication_date._d.toString(),
+      image: newBook.image,
+      category_id: newBook.category_id,
+      discription: 'abc'
     }
     console.log('book: ', data)
-    axios.post('https://bookstore-api.thangld-dev.tech/api/book/create',  data )
-    .then((response) => {
-      console.log('response create bôk:', response)
-      const dataItem = {
-        'amount': newBook.amount,
-        'price': newBook.price,
-        'book': response.data.data._id
-      }
-      return dataItem
-    })
-    .then((dataItem) => {
-      console.log('data post itembook', dataItem)//eo hieu lun a
-      return axios.post('https://bookstore-api.thangld-dev.tech/api/itembook/create',  dataItem )
-    })
-    .then((data) => {
-      console.log('response create item bôk:', data)
-      notification["success"]({
+    axios.post('https://bookstore-api.thangld-dev.tech/api/book/create', data)
+      .then((response) => {
+        console.log('response create bôk:', response)
+        const data = {
+          amount: newBook.amount,
+          price: newBook.price,
+          book: response.data.data.book
+        }
+        return data
+      })
+      .then((data) => {
+        console.log('data post itembook', data)//eo hieu lun a
+        return axios.post('https://bookstore-api.thangld-dev.tech/api/itembook/create', data)
+      })
+      .then((data) => {
+        console.log('response create item bôk:', data)
+        notification["success"]({
           message: "Add book successful",
           placement: "topRight"
         })
-    })
-    .catch((e) => {
-      notification["error"]({
-        message: "Add book failed",
-        placement: "topRight"
+        window.location.reload();
       })
-    })
+      .catch((e) => {
+        notification["error"]({
+          message: "Add book failed",
+          placement: "topRight"
+        })
+      })
   }
 
   const handleCancel = () => {
@@ -194,14 +204,14 @@ function Admin() {
   }
 
   const config = {
-  rules: [
-    {
-      type: 'object',
-      required: true,
-      message: 'Please select time!',
-    },
-  ],
-};
+    rules: [
+      {
+        type: 'object',
+        required: true,
+        message: 'Please select time!',
+      },
+    ],
+  };
 
   return (
     <div style={{ paddingTop: 100, paddingLeft: 40, paddingRight: 40 }}>
@@ -218,6 +228,7 @@ function Admin() {
         <Form
           id="myForm"
           name="basic"
+          // fields={fields}
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
           initialValues={editModal}
@@ -265,17 +276,17 @@ function Admin() {
           </Form.Item>
 
           <Form.Item name="category_id" label="Thể loại" rules={[{ required: true }]}>
-          <Select
-            placeholder="Chọn thể loại"
-            allowClear
-          >
-            <Option value="6276a5b8f95484e7d1935f0d">Đời sống</Option>
-            <Option value="6276a5e8f95484e7d1935f10">Phát triển bản thân</Option>
-            <Option value="6276a8e2f95484e7d1935f41">Truyện, tiểu thuyết</Option>
-            <Option value="6276a916f95484e7d1935f43">Chính trị - pháp luật</Option>
-            <Option value="o6276a93ff95484e7d1935f45">Văn hoá xã hội, Lịch sử</Option>
-          </Select>
-        </Form.Item>
+            <Select
+              placeholder="Chọn thể loại"
+              allowClear
+            >
+              <Option value="6276a5b8f95484e7d1935f0d">Đời sống</Option>
+              <Option value="6276a5e8f95484e7d1935f10">Phát triển bản thân</Option>
+              <Option value="6276a8e2f95484e7d1935f41">Truyện, tiểu thuyết</Option>
+              <Option value="6276a916f95484e7d1935f43">Chính trị - pháp luật</Option>
+              <Option value="o6276a93ff95484e7d1935f45">Văn hoá xã hội, Lịch sử</Option>
+            </Select>
+          </Form.Item>
 
           <Form.Item
             label="Số trang"
@@ -295,7 +306,7 @@ function Admin() {
 
           <Form.Item name="publication_date" label="Ngày phát hành" {...config}>
             <DatePicker />
-          </Form.Item>    
+          </Form.Item>
 
           <Form.Item
             label="Ảnh"
