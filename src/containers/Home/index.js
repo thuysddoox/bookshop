@@ -15,7 +15,7 @@ function Home() {
         // window.location.reload(false);
         const fetchData = async () => {
             //const response = bookApis.getAll()
-            const response = await axios.get('https://bookstore-api.thangld-dev.tech/api/itembook')
+            const response = await axios.get('https://thangld-dev.tech/api/itembook')
             setBooks(response.data.data)
         }
         fetchData()

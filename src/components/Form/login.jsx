@@ -106,7 +106,7 @@ const LoginForm = () => {
       })
   }
   async function LoginFace() {
-    window.open('https://bookstore-api.thangld-dev.tech/api/auth/facebook');
+    window.open('https://thangld-dev.tech/api/auth/facebook');
     // const response = await login_facebook()
     console.log(window.location.pathname);
 

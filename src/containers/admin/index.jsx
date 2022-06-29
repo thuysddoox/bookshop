@@ -116,7 +116,7 @@ function Admin() {
 
   const onConfirmDelete = async () => {
     try {
-      await axios.patch('https://bookstore-api.thangld-dev.tech/api/itembook/delete', { id: isDelete })
+      await axios.patch('https://thangld-dev.tech/api/itembook/delete', { id: isDelete })
       notification["success"]({
         message: "Delete book successful",
         placement: "topRight"
@@ -133,7 +133,7 @@ function Admin() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get('https://bookstore-api.thangld-dev.tech/api/itembook')
+      const response = await axios.get('https://thangld-dev.tech/api/itembook')
       const filterDeleted = response.data.data.filter(book => book.book?.is_active === true)
       setBooks(
         filterDeleted.map(row => ({
@@ -169,7 +169,7 @@ function Admin() {
       discription: 'abc'
     }
     console.log('book: ', data)
-    axios.post('https://bookstore-api.thangld-dev.tech/api/book/create', data)
+    axios.post('https://thangld-dev.tech/api/book/create', data)
       .then((response) => {
         console.log('response create bôk:', response)
         const data = {
@@ -181,7 +181,7 @@ function Admin() {
       })
       .then((data) => {
         console.log('data post itembook', data)//eo hieu lun a
-        return axios.post('https://bookstore-api.thangld-dev.tech/api/itembook/create', data)
+        return axios.post('https://thangld-dev.tech/api/itembook/create', data)
       })
       .then((data) => {
         console.log('response create item bôk:', data)
